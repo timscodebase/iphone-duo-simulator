@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — iPhone Duo DevTools Simulator</title>
+  <meta name="description" content="Privacy Policy for iPhone Duo DevTools Simulator Chrome extension. Full transparency regarding local execution and zero data collection.">
+  <link rel="icon" type="image/png" href="assets/icon-32.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Ambient background glow gradients -->
+  <div class="ambient-glow glow-blue"></div>
+  <div class="ambient-glow glow-purple"></div>
+
+  <!-- Top Navigation -->
+  <nav class="navbar">
+    <a href="index.html" class="nav-brand">
+      <img src="assets/icon-48.png" alt="iPhone Duo Logo" class="nav-logo">
+      <span class="nav-title">iPhone Duo Simulator</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">← Back to Overview</a>
+    </div>
+  </nav>
+
+  <!-- Privacy Policy Content Container -->
+  <main class="privacy-container">
+    <h1 class="privacy-title">Privacy Policy</h1>
+    <div class="privacy-meta">
+      <span>Last updated: September 22, 2026</span> • <span>Version 1.0.0</span>
+    </div>
+
+    <div class="privacy-content">
+      <p>
+        <strong>iPhone Duo DevTools Simulator</strong> ("we", "our", or "the extension") is a developer tool designed to assist web developers, designers, and testers in previewing and debugging responsive web applications for foldable and dual-screen viewports.
+      </p>
+      <p>
+        We are committed to user privacy and full transparency. This Privacy Policy details our data practices and browser permission usage.
+      </p>
+
+      <h2>1. Information Collection and Use</h2>
+      <p>
+        <strong>iPhone Duo DevTools Simulator does not collect, record, store, or transmit any personal data or browsing activity.</strong>
+      </p>
+      <ul>
+        <li><strong>No Personal Information:</strong> We do not collect names, email addresses, IP addresses, location data, or unique device identifiers.</li>
+        <li><strong>No Browsing History:</strong> The extension does not record, track, or transmit the URLs, pages, or DOM contents you inspect.</li>
+        <li><strong>No Third-Party Analytics:</strong> There are no tracking scripts, analytics tools (e.g. Google Analytics), or telemetry SDKs embedded in the extension.</li>
+        <li><strong>No Remote Transmission:</strong> All emulation logic runs 100% locally on your machine within Chrome's sandboxed extension environment. No network requests are made to external servers.</li>
+      </ul>
+
+      <h2>2. Permissions and API Usage</h2>
+      <p>
+        The extension requests specific browser permissions strictly to perform its developer emulation features:
+      </p>
+      <ul>
+        <li><code>debugger</code>: Used exclusively to issue Chrome DevTools Protocol commands (<code>Emulation.setDeviceMetricsOverride</code>, <code>Emulation.setUserAgentOverride</code>, and <code>Emulation.setDisplayFeatures</code>) to emulate viewport dimensions, @3x retina scale, and touch points on the tab you are actively inspecting.</li>
+        <li><code>tabs</code> and <code>activeTab</code>: Used strictly to pass posture configuration and crease overlay toggle messages to the content script on the inspected web page.</li>
+        <li><code>scripting</code>: Used to inject the WebMCP model context tool bridge into the inspected DOM context for AI agent posture testing.</li>
+        <li><code>storage</code>: Used solely to remember your local preferences (such as crease guide visibility and fold angle) within <code>chrome.storage.local</code> on your device.</li>
+        <li><code>&lt;all_urls&gt;</code>: Grants the ability to inspect and emulate viewports across any website, including local development servers (<code>http://localhost:*</code>, <code>http://127.0.0.1:*</code>), internal testing environments, and public web applications.</li>
+      </ul>
+
+      <h2>3. Data Storage</h2>
+      <p>
+        Any settings you configure (such as toggling crease guides or selecting a preferred default posture) are saved locally on your device via Chrome's native <code>chrome.storage.local</code> API. This data remains on your computer and is completely removed if you uninstall the extension.
+      </p>
+
+      <h2>4. Third-Party Sharing</h2>
+      <p>
+        We do not sell, rent, trade, or transfer any user data to third parties.
+      </p>
+
+      <h2>5. Security</h2>
+      <p>
+        Because the extension operates entirely locally on your workstation without remote server dependencies, your code, local environments, and inspected websites remain completely private.
+      </p>
+
+      <h2>6. Contact &amp; Support</h2>
+      <p>
+        If you have any questions or feedback regarding this Privacy Policy, please open an issue on the official GitHub repository:
+      </p>
+      <p>
+        <a href="https://github.com/timscodebase/iphone-duo-simulator/issues" target="_blank" rel="noopener noreferrer" style="color:var(--accent-blue);">
+          https://github.com/timscodebase/iphone-duo-simulator/issues
+        </a>
+      </p>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div>
+        <strong>iPhone Duo DevTools Simulator</strong> &copy; 2026.
+      </div>
+      <div class="footer-links">
+        <a href="index.html" class="footer-link">Home</a>
+        <a href="https://github.com/timscodebase/iphone-duo-simulator" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub</a>
+        <a href="https://chrome.google.com/webstore" target="_blank" rel="noopener noreferrer" class="footer-link">Chrome Web Store</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>iPhone Duo DevTools Simulator — Dual-Screen Foldable Web Testing for Chrome</title>
+  <meta name="description" content="Simulate Apple iPhone Duo foldable postures, hardware crease guides, 3D book perspective, and WebMCP agent tools inside Google Chrome DevTools.">
+  <link rel="icon" type="image/png" href="assets/icon-32.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Ambient background glow gradients -->
+  <div class="ambient-glow glow-blue"></div>
+  <div class="ambient-glow glow-purple"></div>
+  <div class="ambient-glow glow-cyan"></div>
+
+  <!-- Top Navigation -->
+  <nav class="navbar">
+    <a href="#" class="nav-brand">
+      <img src="assets/icon-48.png" alt="iPhone Duo Logo" class="nav-logo">
+      <span class="nav-title">iPhone Duo Simulator</span>
+    </a>
+    <div class="nav-links">
+      <a href="#playground" class="nav-link">Interactive Simulator</a>
+      <a href="#features" class="nav-link">Features</a>
+      <a href="#webmcp" class="nav-link">WebMCP &amp; AI</a>
+      <a href="#install" class="nav-link">Installation</a>
+      <a href="privacy.html" class="nav-link">Privacy Policy</a>
+    </div>
+    <a href="https://chrome.google.com/webstore" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+      <span>Add to Chrome</span>
+    </a>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero container">
+    <div class="hero-pill">
+      <span class="hero-pill-dot"></span>
+      <span>Chrome DevTools Extension • iOS 27 Architecture</span>
+    </div>
+    <h1 class="hero-title">
+      Preview Foldable Web Apps on<br>
+      <span class="gradient-text">Apple iPhone Duo</span>
+    </h1>
+    <p class="hero-subtitle">
+      Test dual-screen postures, inspect HIG 445pt crease guides, simulate 3D book perspective, and evaluate autonomous WebMCP agent tools directly inside Chrome DevTools.
+    </p>
+    <div class="hero-actions">
+      <a href="#playground" class="btn btn-primary">Try Interactive Simulator</a>
+      <a href="https://github.com/timscodebase/iphone-duo-simulator" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+        <span>View on GitHub</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Interactive Simulator Playground -->
+  <section id="playground" class="playground-section container">
+    <div class="playground-card">
+      <!-- Toolbar Controls -->
+      <div class="playground-toolbar">
+        <div class="posture-buttons">
+          <button class="posture-btn" data-posture="folded">Folded (5.4" Outer)</button>
+          <button class="posture-btn active" data-posture="unfolded">Unfolded (7.6" Flat)</button>
+          <button class="posture-btn" data-posture="partially-folded">Partially Folded (Book)</button>
+          <button class="posture-btn" data-posture="split-view">Split View</button>
+        </div>
+
+        <div class="control-toggles">
+          <label class="toggle-label">
+            <input type="checkbox" id="toggleCrease" checked>
+            <span>Crease Guide (445pt)</span>
+          </label>
+          <label class="toggle-label">
+            <input type="checkbox" id="toggleReserved" checked>
+            <span>HIG 40px Reserved Zone</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- 3D Emulation Stage -->
+      <div class="stage">
+        <!-- 3D Phone Chassis -->
+        <div class="phone-chassis unfolded" id="phoneChassis">
+          <!-- Dynamic Island for Outer Screen -->
+          <div class="dynamic-island"></div>
+
+          <!-- Left Display Screen -->
+          <div class="screen-pane screen-left">
+            <div class="screen-header">Student Operating System</div>
+            <div class="screen-text" id="leftSubtitle">Primary Canvas (445 × 626 pt)</div>
+            <div class="mockup-card">
+              <div class="mockup-label">Left Display Canvas</div>
+              <div class="mockup-val">Interactive Workspace</div>
+            </div>
+          </div>
+
+          <!-- Hardware Hinge Elements -->
+          <div class="reserved-zone" id="reservedZone"></div>
+          <div class="hinge-crease" id="hingeCrease">
+            <div class="crease-badge">445pt Crease</div>
+          </div>
+          <div class="spine-shadow" id="spineShadow"></div>
+
+          <!-- Right Display Screen -->
+          <div class="screen-pane screen-right">
+            <div class="screen-header">Tools &amp; Reference</div>
+            <div class="screen-text" id="rightSubtitle">Secondary Canvas (445 × 626 pt)</div>
+            <div class="mockup-card">
+              <div class="mockup-label">WebMCP Agent Bridge</div>
+              <div class="mockup-val" style="color:#007AFF;">Active &amp; Ready</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Angle Slider Controller for Book Pose -->
+        <div class="angle-slider-box" id="angleSliderBox">
+          <span>Fold Angle: <strong id="angleValue" style="color:var(--accent-purple);">110°</strong></span>
+          <input type="range" id="angleSlider" min="60" max="160" value="110" step="5">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Grid -->
+  <section id="features" class="features-section container">
+    <div class="section-header">
+      <h2 class="section-title">Built for Modern Foldable Web Engineering</h2>
+      <p class="section-desc">Everything frontend teams need to build responsive, crease-aware layouts for dual-screen devices.</p>
+    </div>
+
+    <div class="grid">
+      <div class="feature-card">
+        <div class="feature-icon">📱</div>
+        <h3 class="feature-title">Authentic Dual-Screen Postures</h3>
+        <p class="feature-text">
+          Toggle seamlessly between Folded (5.4" Outer: 466 × 678 pt), Unfolded (7.6" Flat: 890 × 626 pt @3x), Partially Folded (Book/Laptop Pose), and 50% Split View.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">📐</div>
+        <h3 class="feature-title">HIG 40px Crease &amp; Hinge Guides</h3>
+        <p class="feature-text">
+          Real-time visual guides highlighting the center 445pt crease and 40px folding reservation zone to ensure interactive buttons and typography never sit on the hinge.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">📖</div>
+        <h3 class="feature-title">3D Book &amp; Laptop Perspective</h3>
+        <p class="feature-text">
+          Adjust the physical fold angle from 60° to 160° with dynamic 3D CSS perspective transforms and realistic hardware spine depth shading.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🤖</div>
+        <h3 class="feature-title">WebMCP Autonomous Agent Tools</h3>
+        <p class="feature-text">
+          Automatically detects client-side <code>navigator.modelContext</code> registrations and exposes the <code>iphone_duo_set_posture</code> tool for autonomous testing agents.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3 class="feature-title">Native Chrome DevTools Protocol</h3>
+        <p class="feature-text">
+          Uses native CDP emulation (<code>Emulation.setDeviceMetricsOverride</code> and touch points) for genuine hardware pixel density (@3x retina scaling).
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <h3 class="feature-title">100% Local &amp; Privacy-First</h3>
+        <p class="feature-text">
+          Runs entirely in your local browser sandbox. Zero telemetry, no external server communication, and zero tracking of inspected web pages.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WebMCP Code Section -->
+  <section id="webmcp" class="webmcp-section container">
+    <div class="section-header">
+      <h2 class="section-title">WebMCP &amp; AI Agent Readiness</h2>
+      <p class="section-desc">Exposes posture control as an MCP tool so autonomous agents can test your website in different hardware states.</p>
+    </div>
+
+    <div class="code-box">
+      <div class="code-header">
+        <span>navigator.modelContext Tool Registration</span>
+        <button class="copy-btn" id="copyBtn">Copy Code</button>
+      </div>
+      <pre id="codeBlock"><code>// The extension registers the posture control tool with the page's model context
+navigator.modelContext.registerTool({
+  name: 'iphone_duo_set_posture',
+  description: 'Controls simulated physical posture of the iPhone Duo (folded, unfolded, partially_folded, split_view).',
+  inputSchema: {
+    type: 'object',
+    properties: {
+      posture: {
+        type: 'string',
+        enum: ['folded', 'unfolded', 'partially_folded', 'split_view'],
+        description: 'Physical hardware posture of the device'
+      },
+      angle: {
+        type: 'number',
+        description: 'Fold angle in degrees (60° to 160°) for partially_folded pose'
+      }
+    },
+    required: ['posture']
+  }
+}, async ({ posture, angle }) => {
+  // Emulates folding transition on inspected page
+  return { status: 'success', posture, angle: angle || 110 };
+});</code></pre>
+    </div>
+  </section>
+
+  <!-- Install Section -->
+  <section id="install" class="features-section container" style="padding-top:0;">
+    <div class="section-header">
+      <h2 class="section-title">Get Started in Seconds</h2>
+      <p class="section-desc">Available for Google Chrome and Chromium-based browsers.</p>
+    </div>
+
+    <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+      <div class="feature-card">
+        <div class="feature-icon">🛍️</div>
+        <h3 class="feature-title">Chrome Web Store</h3>
+        <p class="feature-text" style="margin-bottom:16px;">
+          Install with one click from the official store with automated background updates.
+        </p>
+        <a href="https://chrome.google.com/webstore" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="font-size:12px; padding:6px 14px;">
+          Install from Web Store
+        </a>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🛠️</div>
+        <h3 class="feature-title">Developer Mode (Unpacked)</h3>
+        <p class="feature-text" style="margin-bottom:16px;">
+          Clone the repository, run <code>npm run build</code>, and load the unpacked directory in <code>chrome://extensions</code>.
+        </p>
+        <a href="https://github.com/timscodebase/iphone-duo-simulator" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="font-size:12px; padding:6px 14px;">
+          GitHub Repository
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div>
+        <strong>iPhone Duo DevTools Simulator</strong> &copy; 2026. Built for foldable web developers.
+      </div>
+      <div class="footer-links">
+        <a href="privacy.html" class="footer-link">Privacy Policy</a>
+        <a href="https://github.com/timscodebase/iphone-duo-simulator" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub</a>
+        <a href="https://chrome.google.com/webstore" target="_blank" rel="noopener noreferrer" class="footer-link">Chrome Web Store</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
