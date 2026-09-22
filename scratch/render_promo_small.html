@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 440px;
+    height: 280px;
+    background: #0D1117;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", -system-ui, sans-serif;
+    color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ambient-blue {
+    position: absolute;
+    width: 320px;
+    height: 320px;
+    top: -100px;
+    right: -80px;
+    background: radial-gradient(circle, rgba(10, 132, 255, 0.35) 0%, rgba(88, 86, 214, 0.2) 50%, transparent 70%);
+    filter: blur(50px);
+  }
+  .ambient-purple {
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    bottom: -60px;
+    left: -40px;
+    background: radial-gradient(circle, rgba(175, 82, 222, 0.25) 0%, transparent 70%);
+    filter: blur(50px);
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 2;
+  }
+  .badge {
+    padding: 3px 8px;
+    background: rgba(10, 132, 255, 0.15);
+    border: 1px solid rgba(10, 132, 255, 0.35);
+    border-radius: 999px;
+    font-size: 10px;
+    font-weight: 700;
+    color: #64D2FF;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .ver-badge {
+    padding: 3px 8px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 999px;
+    font-size: 10px;
+    font-weight: 600;
+    color: #98989D;
+  }
+
+  .hero {
+    z-index: 2;
+    max-width: 240px;
+  }
+  .title {
+    font-size: 26px;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.5px;
+    color: #FFFFFF;
+  }
+  .gradient-text {
+    background: linear-gradient(135deg, #64D2FF 0%, #0A84FF 40%, #BF5AF2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .desc {
+    margin-top: 8px;
+    font-size: 12px;
+    line-height: 1.4;
+    color: #8E8E93;
+  }
+
+  .device-art {
+    position: absolute;
+    right: 14px;
+    top: 52px;
+    width: 175px;
+    height: 175px;
+    z-index: 3;
+    filter: drop-shadow(0 16px 30px rgba(0,0,0,0.7));
+  }
+
+  .footer-tags {
+    display: flex;
+    gap: 6px;
+    z-index: 2;
+  }
+  .tag {
+    padding: 4px 8px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 500;
+    color: #D1D1D6;
+  }
+</style>
+</head>
+<body>
+  <div class="ambient-blue"></div>
+  <div class="ambient-purple"></div>
+
+  <div class="header">
+    <span class="badge">DevTools Panel</span>
+    <span class="ver-badge">iOS 27 Foldable</span>
+  </div>
+
+  <div class="hero">
+    <h1 class="title">iPhone Duo<br><span class="gradient-text">Simulator</span></h1>
+    <p class="desc">Posture emulation, 445pt crease guides &amp; WebMCP agent tools for Chrome.</p>
+  </div>
+
+  <img class="device-art" src="../scratch/icon-512.png" alt="Device">
+
+  <div class="footer-tags">
+    <span class="tag">Dual OLED</span>
+    <span class="tag">Split View</span>
+    <span class="tag">WebMCP Tools</span>
+  </div>
+</body>
+</html>

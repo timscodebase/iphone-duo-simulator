@@ -1,0 +1,118 @@
+/* Base Container for iPhone Duo Simulation */
+#iphone-duo-overlay-host {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 2147483647;
+  overflow: hidden;
+}
+
+/* Outer Screen Notch / Dynamic Island indicator in Folded mode */
+.iphone-duo-outer-island {
+  position: fixed;
+  top: 14px;
+  right: 18px;
+  width: 32px;
+  height: 32px;
+  background: #000000;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.iphone-duo-outer-island::after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #0d1b2a;
+}
+
+/* Center Crease Dotted Line for Unfolded & Partially Folded */
+.iphone-duo-crease {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: calc(50% - 1px);
+  width: 2px;
+  border-left: 2px dashed rgba(0, 113, 227, 0.85);
+  filter: drop-shadow(0 0 4px rgba(0, 113, 227, 0.5));
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.iphone-duo-crease-badge {
+  background: rgba(0, 113, 227, 0.9);
+  color: #ffffff;
+  font-family: -apple-system, system-ui, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 10px;
+  margin-top: 12px;
+  white-space: nowrap;
+}
+
+/* Apple HIG Reserved Region (40px hinge strip in the middle) */
+.iphone-duo-reserved-region {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: calc(50% - 20px);
+  width: 40px;
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(255, 149, 0, 0.08),
+    rgba(255, 149, 0, 0.08) 10px,
+    rgba(255, 149, 0, 0.16) 10px,
+    rgba(255, 149, 0, 0.16) 20px
+  );
+  border-left: 1px solid rgba(255, 149, 0, 0.4);
+  border-right: 1px solid rgba(255, 149, 0, 0.4);
+  pointer-events: none;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 24px;
+}
+
+.iphone-duo-reserved-badge {
+  background: rgba(255, 149, 0, 0.95);
+  color: #000000;
+  font-family: -apple-system, system-ui, sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* 3D Partial Fold Perspective Effect applied to document body */
+body.duo-partially-folded {
+  perspective: 1200px !important;
+  transform-style: preserve-3d !important;
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  overflow-x: hidden !important;
+}
+
+/* Center lighting shadow down the hinge spine */
+.iphone-duo-spine-shadow {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: calc(50% - 30px);
+  width: 60px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(0, 0, 0, 0.18) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+}

@@ -1,0 +1,1 @@
+import"./chunks/modulepreload-polyfill.js";console.log("[iPhone Duo] Initializing DevTools panel...");chrome.devtools.panels.create("iPhone Duo","","dist/src/devtools/panel.html",e=>{console.log("[iPhone Duo] DevTools panel successfully registered:",e),e.onShown.addListener(()=>{chrome.tabs.sendMessage(chrome.devtools.inspectedWindow.tabId,{type:"QUERY_WEBMCP_STATE"})})});

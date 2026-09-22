@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1400px;
+    height: 560px;
+    background: #0A0D14;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 90px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ambient-blue {
+    position: absolute;
+    width: 700px;
+    height: 700px;
+    top: -200px;
+    right: 50px;
+    background: radial-gradient(circle, rgba(10, 132, 255, 0.3) 0%, rgba(88, 86, 214, 0.2) 40%, transparent 70%);
+    filter: blur(80px);
+  }
+  .ambient-purple {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    bottom: -200px;
+    left: -100px;
+    background: radial-gradient(circle, rgba(175, 82, 222, 0.22) 0%, transparent 70%);
+    filter: blur(80px);
+  }
+
+  .left-col {
+    max-width: 650px;
+    z-index: 2;
+  }
+
+  .badge-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .pill-highlight {
+    padding: 6px 14px;
+    background: rgba(10, 132, 255, 0.18);
+    border: 1px solid rgba(10, 132, 255, 0.4);
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #64D2FF;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+  }
+  .pill-sub {
+    padding: 6px 14px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #A1A1A6;
+  }
+
+  .title {
+    font-size: 58px;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -1.5px;
+    color: #FFFFFF;
+    margin-bottom: 18px;
+  }
+  .gradient-text {
+    background: linear-gradient(135deg, #64D2FF 0%, #0A84FF 35%, #BF5AF2 75%, #FF2D55 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .desc {
+    font-size: 20px;
+    line-height: 1.45;
+    color: #98989D;
+    margin-bottom: 32px;
+  }
+
+  .features-grid {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .feature-chip {
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #E5E5EA;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .feature-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #30D158;
+  }
+
+  .right-col {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .device-hero {
+    width: 380px;
+    height: 380px;
+    filter: drop-shadow(0 24px 50px rgba(0,0,0,0.8));
+    animation: none;
+  }
+</style>
+</head>
+<body>
+  <div class="ambient-blue"></div>
+  <div class="ambient-purple"></div>
+
+  <div class="left-col">
+    <div class="badge-row">
+      <span class="pill-highlight">Chrome DevTools Extension</span>
+      <span class="pill-sub">Apple Dual-Screen Architecture</span>
+    </div>
+
+    <h1 class="title">iPhone Duo<br><span class="gradient-text">DevTools Simulator</span></h1>
+    <p class="desc">
+      Test and optimize foldable web apps with authentic iOS 27 postures, 445pt crease guides, 3D book fold perspective, and autonomous WebMCP agent integration.
+    </p>
+
+    <div class="features-grid">
+      <div class="feature-chip"><span class="feature-dot"></span> Folded (5.4" Outer)</div>
+      <div class="feature-chip"><span class="feature-dot"></span> Unfolded (7.6" Flat)</div>
+      <div class="feature-chip"><span class="feature-dot"></span> Book / Laptop Pose</div>
+      <div class="feature-chip"><span class="feature-dot"></span> WebMCP Tools Bridge</div>
+    </div>
+  </div>
+
+  <div class="right-col">
+    <img class="device-hero" src="../scratch/icon-512.png" alt="iPhone Duo Hardware Frame">
+  </div>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "name": "iphone-duo-simulator",
+  "version": "1.0.0",
+  "description": "Chrome Extension & DevTools Panel to simulate Apple iPhone Duo with WebMCP support",
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "watch": "vite build --watch"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.308",
+    "@types/node": "^22.13.9",
+    "typescript": "^5.8.2",
+    "vite": "^6.2.0"
+  }
+}

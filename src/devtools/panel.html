@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>iPhone Duo Inspector & Controller</title>
+  <link rel="stylesheet" href="./panel.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="header-brand">
+        <div class="brand-badge">iOS 27</div>
+        <h1>iPhone Duo Simulator</h1>
+      </div>
+      <div class="status-badge" id="postureStatus">Ready (Native)</div>
+    </header>
+
+    <section class="card">
+      <h2>1. Device Postures & Dimensions</h2>
+      <div class="button-grid">
+        <button class="btn btn-primary" id="btnFolded">
+          <strong>Folded (Outer)</strong>
+          <span class="subtext">5.4" • 466 × 678 pt (@3x: 1398 × 2034 px)</span>
+        </button>
+        <button class="btn btn-primary" id="btnUnfolded">
+          <strong>Unfolded (Flat)</strong>
+          <span class="subtext">7.6" • 890 × 626 pt (@3x: 2670 × 1878 px)</span>
+        </button>
+        <button class="btn btn-primary" id="btnPartiallyFolded">
+          <strong>Partially Folded</strong>
+          <span class="subtext">Book / Laptop Pose • 3D Hinge Crease</span>
+        </button>
+        <button class="btn btn-secondary" id="btnSplitView">
+          <strong>Split View</strong>
+          <span class="subtext">445 × 626 pt (50% Multitasking)</span>
+        </button>
+      </div>
+
+      <div class="action-row">
+        <button class="btn btn-reset" id="btnReset">Reset Default Emulation</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>2. Crease & Reserved Region Guides</h2>
+      <div class="control-row">
+        <label class="toggle-control">
+          <input type="checkbox" id="chkCrease" checked>
+          <span>Show Center Crease (Dotted Line at x: 445pt)</span>
+        </label>
+      </div>
+      <div class="control-row">
+        <label class="toggle-control">
+          <input type="checkbox" id="chkReservedRegion" checked>
+          <span>Highlight HIG 40px Folding Reserved Region</span>
+        </label>
+      </div>
+      <div class="control-row" id="angleRow">
+        <label for="sliderAngle">Partial Fold Angle: <strong id="angleValue">110°</strong></label>
+        <input type="range" id="sliderAngle" min="60" max="160" value="110" step="5">
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="section-title-row">
+        <h2>3. WebMCP & AI Agent Readiness</h2>
+        <span class="pill" id="webmcpPill">Scanning...</span>
+      </div>
+      <p class="description">
+        Detects <code>navigator.modelContext</code> registrations and exposes the 
+        <code>iphone_duo_set_posture</code> tool for automated AI agents.
+      </p>
+
+      <div class="tool-list" id="toolList">
+        <div class="empty-state">No client-side WebMCP tools detected on this page.</div>
+      </div>
+
+      <div class="test-runner">
+        <button class="btn btn-action" id="btnRunAgentPostureTest">
+          Trigger Agent Posture Tool via WebMCP
+        </button>
+      </div>
+    </section>
+  </div>
+  <script type="module" src="./panel.ts"></script>
+</body>
+</html>

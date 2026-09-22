@@ -1,0 +1,143 @@
+import type { DuoPosture } from '../background/background';
+import type { WebMCPTool } from '../types/webmcp';
+
+const tabId = chrome.devtools.inspectedWindow.tabId;
+
+// DOM Elements
+const postureStatus = document.getElementById('postureStatus') as HTMLDivElement;
+const btnFolded = document.getElementById('btnFolded') as HTMLButtonElement;
+const btnUnfolded = document.getElementById('btnUnfolded') as HTMLButtonElement;
+const btnPartiallyFolded = document.getElementById('btnPartiallyFolded') as HTMLButtonElement;
+const btnSplitView = document.getElementById('btnSplitView') as HTMLButtonElement;
+const btnReset = document.getElementById('btnReset') as HTMLButtonElement;
+
+const chkCrease = document.getElementById('chkCrease') as HTMLInputElement;
+const chkReservedRegion = document.getElementById('chkReservedRegion') as HTMLInputElement;
+const sliderAngle = document.getElementById('sliderAngle') as HTMLInputElement;
+const angleValue = document.getElementById('angleValue') as HTMLElement;
+const webmcpPill = document.getElementById('webmcpPill') as HTMLSpanElement;
+const toolList = document.getElementById('toolList') as HTMLDivElement;
+const btnRunAgentPostureTest = document.getElementById('btnRunAgentPostureTest') as HTMLButtonElement;
+
+let currentPosture: DuoPosture = 'reset';
+
+function updateActiveButton(activeBtn: HTMLButtonElement | null) {
+  [btnFolded, btnUnfolded, btnPartiallyFolded, btnSplitView].forEach((btn) =>
+    btn.classList.remove('active')
+  );
+  if (activeBtn) activeBtn.classList.add('active');
+}
+
+async function sendPosture(posture: DuoPosture, angle?: number) {
+  currentPosture = posture;
+  postureStatus.textContent = `Applying ${posture}...`;
+
+  chrome.runtime.sendMessage(
+    {
+      type: 'APPLY_POSTURE',
+      tabId,
+      posture,
+      angle: angle ?? parseInt(sliderAngle.value, 10),
+      showCrease: chkCrease.checked,
+      showReservedRegion: chkReservedRegion.checked
+    },
+    (res) => {
+      if (res?.ok) {
+        postureStatus.textContent = `Active: ${posture.toUpperCase()}`;
+      } else {
+        postureStatus.textContent = `Error: ${res?.error || 'Unknown'}`;
+      }
+    }
+  );
+}
+
+btnFolded.addEventListener('click', () => {
+  updateActiveButton(btnFolded);
+  sendPosture('folded');
+});
+
+btnUnfolded.addEventListener('click', () => {
+  updateActiveButton(btnUnfolded);
+  sendPosture('unfolded');
+});
+
+btnPartiallyFolded.addEventListener('click', () => {
+  updateActiveButton(btnPartiallyFolded);
+  sendPosture('partially_folded', parseInt(sliderAngle.value, 10));
+});
+
+btnSplitView.addEventListener('click', () => {
+  updateActiveButton(btnSplitView);
+  sendPosture('split_view');
+});
+
+btnReset.addEventListener('click', () => {
+  updateActiveButton(null);
+  sendPosture('reset');
+});
+
+sliderAngle.addEventListener('input', () => {
+  const deg = sliderAngle.value;
+  angleValue.textContent = `${deg}°`;
+  if (currentPosture === 'partially_folded') {
+    sendPosture('partially_folded', parseInt(deg, 10));
+  }
+});
+
+function syncGuides() {
+  chrome.tabs.sendMessage(tabId, {
+    type: 'TOGGLE_CREASE_OVERLAY',
+    showCrease: chkCrease.checked,
+    showReservedRegion: chkReservedRegion.checked
+  });
+}
+
+chkCrease.addEventListener('change', syncGuides);
+chkReservedRegion.addEventListener('change', syncGuides);
+
+// WebMCP Discovery Listener
+window.addEventListener('message', (event) => {
+  if (event.data?.type === 'WEBMCP_TOOLS_DISCOVERED') {
+    renderWebMCPTools(event.data.tools);
+  }
+});
+
+function renderWebMCPTools(tools: WebMCPTool[]) {
+  if (!tools || tools.length === 0) {
+    webmcpPill.textContent = 'None';
+    webmcpPill.classList.remove('active');
+    toolList.innerHTML = '<div class="empty-state">No WebMCP tools registered.</div>';
+    return;
+  }
+
+  webmcpPill.textContent = `${tools.length} Registered`;
+  webmcpPill.classList.add('active');
+
+  toolList.innerHTML = tools
+    .map(
+      (tool) => `
+    <div class="tool-item">
+      <div class="tool-name">${tool.name}</div>
+      <div class="tool-desc">${tool.description || 'No description provided'}</div>
+    </div>`
+    )
+    .join('');
+}
+
+// Emulate agent invoking WebMCP posture tool directly into page context
+btnRunAgentPostureTest.addEventListener('click', () => {
+  chrome.devtools.inspectedWindow.eval(`
+    if (window.__iPhoneDuoWebMCP) {
+      window.__iPhoneDuoWebMCP.invokePostureTool('partially_folded', 105);
+    } else {
+      console.warn('WebMCP Duo bridge is not active on this page.');
+    }
+  `);
+});
+
+// Initial query to sync page state
+chrome.tabs.sendMessage(tabId, { type: 'QUERY_WEBMCP_STATE' }, (response) => {
+  if (response?.tools) {
+    renderWebMCPTools(response.tools);
+  }
+});
