@@ -104,9 +104,9 @@ English
 ## Privacy Policy
 
 **Privacy Policy URL** [REQUIRED for `<all_urls>`]
-`https://github.com/[YOUR-USERNAME]/iphone-duo-simulator/blob/main/PRIVACY_POLICY.md` (or hosted via GitHub Pages)
+https://timscodebase.github.io/iphone-duo-simulator/privacy.html
 
-*(See [`PRIVACY_POLICY.md`](file:///Users/tithos/Dev/Local%20Web/iphone-duo-simulator/PRIVACY_POLICY.md) in the project root)*
+*(Source file in [`docs/privacy.html`](file:///Users/tithos/Dev/Local%20Web/iphone-duo-simulator/docs/privacy.html) / [`PRIVACY_POLICY.md`](file:///Users/tithos/Dev/Local%20Web/iphone-duo-simulator/PRIVACY_POLICY.md))*
 
 ---
 
@@ -120,10 +120,10 @@ English
 
 ## Developer Info
 
-**Publisher Name** [REQUIRED]: [Your Name / Organization]  
+**Publisher Name** [REQUIRED]: Partners In Code  
 **Contact Email** [REQUIRED]: [Your Developer Contact Email]  
-**Support URL** [RECOMMENDED]: `https://github.com/[YOUR-USERNAME]/iphone-duo-simulator/issues`  
-**Homepage URL** [RECOMMENDED]: `https://github.com/[YOUR-USERNAME]/iphone-duo-simulator`  
+**Support URL** [RECOMMENDED]: https://github.com/timscodebase/iphone-duo-simulator/issues  
+**Homepage URL** [RECOMMENDED]: https://timscodebase.github.io/iphone-duo-simulator/  
 
 ---
 
