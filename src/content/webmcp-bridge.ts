@@ -39,6 +39,7 @@ declare global {
 
     window.postMessage(
       {
+        source: 'IPHONE_DUO_WEBMCP_BRIDGE',
         type: 'APPLY_POSTURE',
         posture,
         angle
@@ -96,6 +97,7 @@ declare global {
     invokePostureTool: async (posture: string, angle = 110) => {
       window.postMessage(
         {
+          source: 'IPHONE_DUO_WEBMCP_BRIDGE',
           type: 'APPLY_POSTURE',
           posture,
           angle

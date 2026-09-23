@@ -65,6 +65,11 @@ chrome.debugger.onDetach.addListener((source) => {
 });
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  // Only handle messages intended for the background service worker
+  if (message?.type !== 'APPLY_POSTURE' && message?.type !== 'TOGGLE_CREASE_OVERLAY') {
+    return false;
+  }
+
   const tabId = message.tabId || sender.tab?.id;
   if (!tabId) {
     sendResponse({ ok: false, error: 'No active tab identifier found' });
@@ -83,7 +88,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             await chrome.debugger.detach({ tabId });
             activeDebuggers.delete(tabId);
           }
-          await chrome.tabs.sendMessage(tabId, { type: 'SET_VIEW_OVERLAY', posture: 'reset' });
+          await chrome.tabs.sendMessage(tabId, { type: 'SET_VIEW_OVERLAY', posture: 'reset' }).catch(() => {});
           sendResponse({ ok: true, posture: 'reset' });
           return;
         }
@@ -124,11 +129,11 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           angle: message.angle ?? 110,
           showCrease: message.showCrease ?? true,
           showReservedRegion: message.showReservedRegion ?? true
-        });
+        }).catch(() => {});
 
         sendResponse({ ok: true, posture, dimensions: { width: config.width, height: config.height } });
       } else if (message.type === 'TOGGLE_CREASE_OVERLAY') {
-        await chrome.tabs.sendMessage(tabId, message);
+        await chrome.tabs.sendMessage(tabId, message).catch(() => {});
         sendResponse({ ok: true });
       }
     } catch (err: unknown) {

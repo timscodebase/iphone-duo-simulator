@@ -85,11 +85,17 @@ sliderAngle.addEventListener('input', () => {
 });
 
 function syncGuides() {
-  chrome.tabs.sendMessage(tabId, {
-    type: 'TOGGLE_CREASE_OVERLAY',
-    showCrease: chkCrease.checked,
-    showReservedRegion: chkReservedRegion.checked
-  });
+  chrome.tabs.sendMessage(
+    tabId,
+    {
+      type: 'TOGGLE_CREASE_OVERLAY',
+      showCrease: chkCrease.checked,
+      showReservedRegion: chkReservedRegion.checked
+    },
+    () => {
+      void chrome.runtime.lastError;
+    }
+  );
 }
 
 chkCrease.addEventListener('change', syncGuides);
@@ -158,6 +164,9 @@ btnRunAgentPostureTest.addEventListener('click', () => {
 
 // Initial queries to sync page state
 chrome.tabs.sendMessage(tabId, { type: 'QUERY_WEBMCP_STATE' }, (response) => {
+  if (chrome.runtime.lastError) {
+    return;
+  }
   if (response?.tools && Array.isArray(response.tools)) {
     renderWebMCPTools(response.tools);
   }

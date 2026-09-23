@@ -8,11 +8,17 @@ let isReservedRegionVisible = true;
 let currentFoldAngle = 110;
 
 function injectScript(filePath: string) {
-  const script = document.createElement('script');
-  script.src = chrome.runtime.getURL(filePath);
-  script.type = 'module';
-  (document.head || document.documentElement).appendChild(script);
-  script.onload = () => script.remove();
+  try {
+    if (typeof chrome !== 'undefined' && chrome.runtime?.getURL) {
+      const script = document.createElement('script');
+      script.src = chrome.runtime.getURL(filePath);
+      script.type = 'module';
+      (document.head || document.documentElement).appendChild(script);
+      script.onload = () => script.remove();
+    }
+  } catch {
+    // Context invalidated or unavailable
+  }
 }
 
 // Inject WebMCP Bridge into MAIN execution world
@@ -85,7 +91,7 @@ function updateVisualOverlays() {
 }
 
 // Handle Messages from Background & DevTools Panel
-chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
+chrome.runtime?.onMessage?.addListener((message, _sender, sendResponse) => {
   if (message.type === 'SET_VIEW_OVERLAY') {
     currentPosture = message.posture;
     currentFoldAngle = message.angle ?? currentFoldAngle;
@@ -93,20 +99,37 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
     isReservedRegionVisible = message.showReservedRegion ?? isReservedRegionVisible;
     updateVisualOverlays();
     sendResponse({ ok: true });
+    return false;
   } else if (message.type === 'TOGGLE_CREASE_OVERLAY') {
     isCreaseVisible = message.showCrease;
     isReservedRegionVisible = message.showReservedRegion;
     updateVisualOverlays();
     sendResponse({ ok: true });
+    return false;
   } else if (message.type === 'QUERY_WEBMCP_STATE') {
     window.postMessage({ type: 'IPHONE_DUO_DISCOVER_TOOLS' }, '*');
     sendResponse({ ok: true });
+    return false;
   }
+  return false;
 });
 
-// Relay WebMCP messages from MAIN page context to DevTools Panel
+// Relay WebMCP messages from MAIN page context to DevTools Panel & Background
 window.addEventListener('message', (event) => {
   if (event.data?.source === 'IPHONE_DUO_WEBMCP_BRIDGE') {
-    chrome.runtime.sendMessage(event.data);
+    try {
+      if (
+        typeof chrome !== 'undefined' &&
+        chrome.runtime &&
+        typeof chrome.runtime.sendMessage === 'function' &&
+        Boolean(chrome.runtime.id)
+      ) {
+        chrome.runtime.sendMessage(event.data).catch(() => {
+          // Extension background/DevTools might not be listening
+        });
+      }
+    } catch {
+      // Ignore extension context invalidated errors
+    }
   }
 });

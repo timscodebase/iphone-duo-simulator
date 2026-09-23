@@ -7,9 +7,15 @@ chrome.devtools.panels.create(
   (panel) => {
     console.log('[iPhone Duo] DevTools panel successfully registered:', panel);
     panel.onShown.addListener(() => {
-      chrome.tabs.sendMessage(chrome.devtools.inspectedWindow.tabId, {
-        type: 'QUERY_WEBMCP_STATE'
-      });
+      chrome.tabs.sendMessage(
+        chrome.devtools.inspectedWindow.tabId,
+        {
+          type: 'QUERY_WEBMCP_STATE'
+        },
+        () => {
+          void chrome.runtime.lastError;
+        }
+      );
     });
   }
 );
