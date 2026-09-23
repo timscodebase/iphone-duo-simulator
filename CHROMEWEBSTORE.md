@@ -131,7 +131,7 @@ https://timscodebase.github.io/iphone-duo-simulator/privacy.html
 
 | Version | Date | Changes | Status |
 |---------|------|---------|--------|
-| 1.0.0 | 2026-09-22 | Initial release: DevTools panel with 4 postures, crease guides, 3D book pose, and WebMCP agent tools | Ready for Submission |
+| 1.0.0 | 2026-09-22 | Initial release: DevTools panel with 4 postures, crease guides, 3D book pose, and WebMCP agent tools | In Review |
 
 ---
 
