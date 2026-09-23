@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>iPhone Duo DevTools Simulator — Dual-Screen Foldable Web Testing for Chrome</title>
   <meta name="description" content="Simulate Apple iPhone Duo foldable postures, hardware crease guides, 3D book perspective, and WebMCP agent tools inside Google Chrome DevTools.">
   <link rel="icon" type="image/png" href="assets/icon-32.png">
+  <link rel="shortcut icon" href="favicon.ico">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -27,29 +28,76 @@
       <a href="#install" class="nav-link">Installation</a>
       <a href="privacy.html" class="nav-link">Privacy Policy</a>
     </div>
-    <a href="https://chrome.google.com/webstore" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+    <a href="https://chrome.google.com/webstore" target="_blank" rel="noopener noreferrer" class="btn btn-primary nav-cta">
       <span>Add to Chrome</span>
     </a>
   </nav>
 
-  <!-- Hero Section -->
-  <header class="hero container">
-    <div class="hero-pill">
-      <span class="hero-pill-dot"></span>
-      <span>Chrome DevTools Extension • iOS 27 Architecture</span>
+  <!-- Mobile Quick Nav Chips for Easy Thumb Navigation -->
+  <div class="mobile-nav-bar">
+    <div class="mobile-nav-scroll">
+      <a href="#playground" class="mobile-nav-chip">🎮 Simulator</a>
+      <a href="#features" class="mobile-nav-chip">✨ Features</a>
+      <a href="#webmcp" class="mobile-nav-chip">🤖 WebMCP AI</a>
+      <a href="#install" class="mobile-nav-chip">📦 Install</a>
+      <a href="privacy.html" class="mobile-nav-chip">🔒 Privacy</a>
     </div>
-    <h1 class="hero-title">
-      Preview Foldable Web Apps on<br>
-      <span class="gradient-text">Apple iPhone Duo</span>
-    </h1>
-    <p class="hero-subtitle">
-      Test dual-screen postures, inspect HIG 445pt crease guides, simulate 3D book perspective, and evaluate autonomous WebMCP agent tools directly inside Chrome DevTools.
-    </p>
-    <div class="hero-actions">
-      <a href="#playground" class="btn btn-primary">Try Interactive Simulator</a>
-      <a href="https://github.com/timscodebase/iphone-duo-simulator" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
-        <span>View on GitHub</span>
-      </a>
+  </div>
+
+  <!-- Hero Section (Mobile-First Stack + Dual-Screen Foldable Split) -->
+  <header class="hero container">
+    <div class="hero-split">
+      <!-- Left Display Screen in Unfolded Mode / Top on Mobile -->
+      <div class="hero-left-pane">
+        <div class="hero-pill">
+          <span class="hero-pill-dot"></span>
+          <span>Chrome DevTools Extension • iOS 27 Architecture</span>
+        </div>
+        <h1 class="hero-title">
+          Preview Foldable Web Apps on<br>
+          <span class="gradient-text">Apple iPhone Duo</span>
+        </h1>
+        <p class="hero-subtitle">
+          Test dual-screen postures, inspect HIG 445pt crease guides, simulate 3D book perspective, and evaluate autonomous WebMCP agent tools directly inside Chrome DevTools.
+        </p>
+        <div class="hero-actions">
+          <a href="#playground" class="btn btn-primary">Try Interactive Simulator</a>
+          <a href="https://github.com/timscodebase/iphone-duo-simulator" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+            <span>View on GitHub</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right Display Screen in Unfolded Mode / Preview Card on Mobile -->
+      <div class="hero-right-pane">
+        <div class="hero-telemetry-card">
+          <div class="telemetry-header">
+            <span class="telemetry-badge">Device Telemetry</span>
+            <span class="telemetry-status-pill">Active Posture</span>
+          </div>
+          <div class="telemetry-grid">
+            <div class="telemetry-item">
+              <span class="telemetry-label">Folded Mode</span>
+              <span class="telemetry-val">5.4" Outer • 466 × 678 pt</span>
+            </div>
+            <div class="telemetry-item highlight">
+              <span class="telemetry-label">Unfolded Mode</span>
+              <span class="telemetry-val">7.6" Flat • 890 × 626 pt</span>
+            </div>
+            <div class="telemetry-item">
+              <span class="telemetry-label">Apple HIG Crease</span>
+              <span class="telemetry-val">445pt Center • 40px Reserved</span>
+            </div>
+            <div class="telemetry-item">
+              <span class="telemetry-label">WebMCP Agent Bridge</span>
+              <span class="telemetry-val" style="color:var(--accent-green);">Ready (2 Tools Discovered)</span>
+            </div>
+          </div>
+          <div class="telemetry-footer">
+            <a href="#playground" class="telemetry-quick-link">Launch Live Simulator ↓</a>
+          </div>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -75,6 +123,12 @@
             <span>HIG 40px Reserved Zone</span>
           </label>
         </div>
+      </div>
+
+      <!-- Active Posture Status Bar -->
+      <div class="stage-status-bar">
+        <span class="status-indicator-dot"></span>
+        <div class="posture-status-badge" id="postureStatusText">Unfolded 7.6" Flat (890 × 626 pt @3x)</div>
       </div>
 
       <!-- 3D Emulation Stage -->
@@ -181,17 +235,41 @@
 
   <!-- WebMCP Code Section -->
   <section id="webmcp" class="webmcp-section container">
-    <div class="section-header">
-      <h2 class="section-title">WebMCP &amp; AI Agent Readiness</h2>
-      <p class="section-desc">Exposes posture control as an MCP tool so autonomous agents can test your website in different hardware states.</p>
-    </div>
-
-    <div class="code-box">
-      <div class="code-header">
-        <span>navigator.modelContext Tool Registration</span>
-        <button class="copy-btn" id="copyBtn">Copy Code</button>
+    <div class="webmcp-split">
+      <div class="webmcp-left-pane">
+        <div class="section-header text-left" style="text-align:left; margin-bottom:24px;">
+          <div class="hero-pill" style="margin-bottom:14px;">
+            <span class="hero-pill-dot"></span>
+            <span>Autonomous Testing Standard</span>
+          </div>
+          <h2 class="section-title">WebMCP &amp; AI Agent Readiness</h2>
+          <p class="section-desc">Exposes simulated hardware posture control as an MCP tool so autonomous agents can test your website across physical device states.</p>
+        </div>
+        <div class="webmcp-perks">
+          <div class="webmcp-perk-item">
+            <span class="perk-icon">⚡</span>
+            <div>
+              <strong>Instant Tool Discovery</strong>
+              <p>Discovers and bridges client-side <code>navigator.modelContext</code> registrations dynamically.</p>
+            </div>
+          </div>
+          <div class="webmcp-perk-item">
+            <span class="perk-icon">🧠</span>
+            <div>
+              <strong>Autonomous Multi-Posture Testing</strong>
+              <p>AI test agents programmatically fold, unfold, and adjust 3D perspective to test layout responsiveness.</p>
+            </div>
+          </div>
+        </div>
       </div>
-      <pre id="codeBlock"><code>// The extension registers the posture control tool with the page's model context
+
+      <div class="webmcp-right-pane">
+        <div class="code-box">
+          <div class="code-header">
+            <span>navigator.modelContext Tool Registration</span>
+            <button class="copy-btn" id="copyBtn">Copy Code</button>
+          </div>
+          <pre id="codeBlock"><code>// The extension registers the posture control tool with the page's model context
 navigator.modelContext.registerTool({
   name: 'iphone_duo_set_posture',
   description: 'Controls simulated physical posture of the iPhone Duo (folded, unfolded, partially_folded, split_view).',
@@ -214,6 +292,8 @@ navigator.modelContext.registerTool({
   // Emulates folding transition on inspected page
   return { status: 'success', posture, angle: angle || 110 };
 });</code></pre>
+        </div>
+      </div>
     </div>
   </section>
 

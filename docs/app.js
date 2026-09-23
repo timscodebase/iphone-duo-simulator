@@ -139,6 +139,48 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Register live demo tool if navigator.modelContext is available
+  function registerSiteWebMCPTools() {
+    const nav = navigator;
+    const mcp = nav.modelContext || (typeof window !== 'undefined' ? window.modelContext : undefined);
+    if (mcp && typeof mcp.registerTool === 'function') {
+      try {
+        mcp.registerTool({
+          name: 'iphone_duo_docs_assistant',
+          description: 'Official iPhone Duo documentation companion tool for inspecting foldable postures.',
+          inputSchema: {
+            type: 'object',
+            properties: {
+              targetPosture: {
+                type: 'string',
+                enum: ['folded', 'unfolded', 'partially-folded', 'split-view'],
+                description: 'The posture to switch the interactive documentation stage to.'
+              }
+            },
+            required: ['targetPosture']
+          }
+        }, async (params) => {
+          if (params?.targetPosture) {
+            setPosture(params.targetPosture);
+            return {
+              content: [{
+                type: 'text',
+                text: `Switched interactive playground posture to ${params.targetPosture}.`
+              }]
+            };
+          }
+          return { content: [{ type: 'text', text: `Current posture is ${currentPosture}.` }] };
+        });
+      } catch (_) {
+        // Native modelContext registration caught safely
+      }
+    }
+  }
+
+  registerSiteWebMCPTools();
+  window.addEventListener('load', registerSiteWebMCPTools);
+
   // Initial posture
   setPosture('unfolded');
 });
+

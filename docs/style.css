@@ -87,10 +87,10 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 32px;
+  padding: 14px 28px;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  background: rgba(6, 8, 13, 0.75);
+  background: rgba(6, 8, 13, 0.85);
   border-bottom: 1px solid var(--border-subtle);
 }
 
@@ -103,14 +103,14 @@ body {
 }
 
 .nav-logo {
-  width: 34px;
-  height: 34px;
+  width: 32px;
+  height: 32px;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
 .nav-title {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 700;
   letter-spacing: -0.3px;
 }
@@ -118,13 +118,13 @@ body {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 20px;
 }
 
 .nav-link {
   color: var(--text-secondary);
   text-decoration: none;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
   transition: color 0.2s;
 }
@@ -133,29 +133,75 @@ body {
   color: var(--text-primary);
 }
 
+/* Mobile Quick-Jump Category Bar */
+.mobile-nav-bar {
+  display: none;
+  background: rgba(13, 17, 26, 0.92);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 8px 16px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  position: sticky;
+  top: 59px;
+  z-index: 99;
+}
+
+.mobile-nav-scroll {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.mobile-nav-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.mobile-nav-chip {
+  padding: 5px 12px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-pill);
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.mobile-nav-chip:hover,
+.mobile-nav-chip:active {
+  background: rgba(10, 132, 255, 0.2);
+  color: var(--accent-cyan);
+  border-color: rgba(100, 210, 255, 0.4);
+}
+
 .btn {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 20px;
+  padding: 9px 18px;
   border-radius: var(--radius-pill);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   text-decoration: none;
   cursor: pointer;
   border: none;
   transition: all 0.25s ease;
+  user-select: none;
 }
 
 .btn-primary {
   background: linear-gradient(135deg, #0A84FF 0%, #0066CC 100%);
   color: #FFFFFF;
-  box-shadow: 0 4px 20px rgba(10, 132, 255, 0.4);
+  box-shadow: 0 4px 18px rgba(10, 132, 255, 0.4);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(10, 132, 255, 0.6);
+  box-shadow: 0 8px 24px rgba(10, 132, 255, 0.6);
 }
 
 .btn-secondary {
@@ -180,24 +226,41 @@ body {
 
 /* Hero Section */
 .hero {
-  padding: 80px 0 60px;
-  text-align: center;
+  padding: 60px 0 50px;
+}
+
+.hero-split {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 48px;
+  text-align: left;
+}
+
+.hero-left-pane {
+  flex: 1.1;
+  min-width: 0;
+}
+
+.hero-right-pane {
+  flex: 0.9;
+  min-width: 0;
 }
 
 .hero-pill {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 16px;
+  padding: 5px 14px;
   border-radius: var(--radius-pill);
   background: rgba(10, 132, 255, 0.12);
   border: 1px solid rgba(10, 132, 255, 0.3);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
   color: var(--accent-cyan);
   text-transform: uppercase;
-  letter-spacing: 0.6px;
-  margin-bottom: 24px;
+  letter-spacing: 0.5px;
+  margin-bottom: 20px;
 }
 
 .hero-pill-dot {
@@ -209,11 +272,12 @@ body {
 }
 
 .hero-title {
-  font-size: clamp(38px, 6vw, 68px);
+  font-size: clamp(30px, 5.2vw, 58px);
   font-weight: 800;
-  line-height: 1.08;
-  letter-spacing: -1.5px;
-  margin-bottom: 20px;
+  line-height: 1.12;
+  letter-spacing: -1.2px;
+  margin-bottom: 18px;
+  word-break: break-word;
 }
 
 .gradient-text {
@@ -223,19 +287,108 @@ body {
 }
 
 .hero-subtitle {
-  max-width: 720px;
-  margin: 0 auto 36px;
-  font-size: clamp(16px, 2.2vw, 20px);
+  font-size: clamp(15px, 1.8vw, 18px);
   color: var(--text-secondary);
-  line-height: 1.5;
+  line-height: 1.55;
+  margin-bottom: 28px;
 }
 
 .hero-actions {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 16px;
+  gap: 14px;
   flex-wrap: wrap;
+}
+
+/* Hero Device Telemetry Card */
+.hero-telemetry-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.telemetry-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.telemetry-badge {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.telemetry-status-pill {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--accent-cyan);
+  background: rgba(10, 132, 255, 0.18);
+  border: 1px solid rgba(10, 132, 255, 0.4);
+  padding: 3px 8px;
+  border-radius: var(--radius-pill);
+  text-transform: uppercase;
+}
+
+.telemetry-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.telemetry-item {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.telemetry-item.highlight {
+  background: rgba(10, 132, 255, 0.08);
+  border-color: rgba(10, 132, 255, 0.28);
+}
+
+.telemetry-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+}
+
+.telemetry-val {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.telemetry-footer {
+  text-align: center;
+}
+
+.telemetry-quick-link {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent-cyan);
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.telemetry-quick-link:hover {
+  opacity: 0.8;
 }
 
 /* Interactive Playground Section */
@@ -313,17 +466,46 @@ body {
   accent-color: var(--accent-blue);
 }
 
+/* Active Posture Status Bar */
+.stage-status-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px 16px;
+  background: rgba(10, 14, 22, 0.6);
+  border-bottom: 1px solid var(--border-subtle);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.status-indicator-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent-green);
+  box-shadow: 0 0 8px var(--accent-green);
+}
+
+.posture-status-badge {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+  color: var(--accent-cyan);
+  letter-spacing: 0.3px;
+}
+
 /* 3D Emulation Stage */
 .stage {
-  padding: 60px 24px;
+  padding: 40px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 560px;
+  min-height: 480px;
   perspective: 1200px;
   background: radial-gradient(circle at center, rgba(16, 22, 34, 0.5) 0%, rgba(6, 8, 13, 0.8) 100%);
   position: relative;
+  overflow: hidden;
 }
 
 /* Phone Hardware Frame */
@@ -333,12 +515,13 @@ body {
   transform-style: preserve-3d;
   display: flex;
   box-shadow: 0 30px 70px rgba(0, 0, 0, 0.8);
+  max-width: 100%;
 }
 
 /* Posture: Unfolded (Flat 7.6" Default) */
 .phone-chassis.unfolded {
-  width: 680px;
-  height: 480px;
+  width: min(100%, 640px);
+  height: clamp(320px, 48vw, 440px);
   border: 3px solid #333338;
   border-radius: 36px;
   background: #101014;
@@ -347,8 +530,8 @@ body {
 
 /* Posture: Folded (5.4" Outer Display) */
 .phone-chassis.folded {
-  width: 340px;
-  height: 480px;
+  width: min(85%, 320px);
+  height: clamp(380px, 58vw, 460px);
   border: 3px solid #333338;
   border-radius: 36px;
   background: #101014;
@@ -363,8 +546,8 @@ body {
 
 /* Posture: Partially Folded (Book Pose 3D) */
 .phone-chassis.partially-folded {
-  width: 680px;
-  height: 480px;
+  width: min(100%, 640px);
+  height: clamp(320px, 48vw, 440px);
   border: none;
   background: transparent;
   padding: 0;
@@ -390,8 +573,8 @@ body {
 
 /* Posture: Split View */
 .phone-chassis.split-view {
-  width: 680px;
-  height: 480px;
+  width: min(100%, 640px);
+  height: clamp(320px, 48vw, 440px);
   border: 3px solid #333338;
   border-radius: 36px;
   background: #101014;
@@ -628,6 +811,61 @@ body {
   padding: 60px 0 100px;
 }
 
+.webmcp-split {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 48px;
+}
+
+.webmcp-left-pane {
+  flex: 1;
+  min-width: 0;
+}
+
+.webmcp-right-pane {
+  flex: 1.15;
+  min-width: 0;
+}
+
+.webmcp-perks {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 24px;
+}
+
+.webmcp-perk-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.perk-icon {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.webmcp-perk-item strong {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 4px;
+  color: var(--text-primary);
+}
+
+.webmcp-perk-item p {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  margin: 0;
+}
+
 .code-box {
   background: #090B10;
   border: 1px solid var(--border-subtle);
@@ -639,6 +877,7 @@ body {
   line-height: 1.6;
   color: #A9B1D6;
   position: relative;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
 }
 
 .code-header {
@@ -745,27 +984,170 @@ body {
   line-height: 1.6;
 }
 
-/* Mobile Responsiveness */
+/* ==========================================================================
+   iPhone Duo (7.6" Unfolded 890px) & CSS Dual-Screen Architecture
+   Respects the 40px center hinge (x: 425px to 465px) so elements never sit on crease
+   ========================================================================== */
+@media (min-width: 800px) and (max-width: 960px),
+       (horizontal-viewport-segments: 2),
+       (screen-spanning: single-fold-vertical) {
+  .container {
+    padding: 0 32px;
+  }
+
+  /* Dual-Screen Hero: Left display has headline/copy; Right display has telemetry card */
+  .hero-split {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 48px; /* Safe clearance across center 40px hinge */
+    text-align: left;
+  }
+  .hero-left-pane {
+    flex: 1;
+  }
+  .hero-right-pane {
+    flex: 1;
+  }
+  .hero-title {
+    font-size: 32px;
+    line-height: 1.15;
+    letter-spacing: -0.8px;
+  }
+  .hero-subtitle {
+    font-size: 14.5px;
+    margin-bottom: 22px;
+  }
+  .hero-actions {
+    justify-content: flex-start;
+  }
+
+  /* Dual-Screen Features: 2 balanced columns, 1 on each display */
+  .features-section .grid {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 48px; /* Leaves 40px center crease completely clear */
+    row-gap: 20px;
+  }
+
+  /* Dual-Screen WebMCP: Left screen explains, Right screen shows code */
+  .webmcp-split {
+    flex-direction: row;
+    gap: 48px;
+  }
+  .webmcp-left-pane,
+  .webmcp-right-pane {
+    flex: 1;
+  }
+}
+
+/* ==========================================================================
+   Mobile Responsiveness (Folded 5.4" Outer: 466px, and mobile <= 768px)
+   ========================================================================== */
 @media (max-width: 768px) {
   .navbar {
-    padding: 14px 20px;
+    padding: 12px 18px;
   }
   .nav-links {
     display: none;
   }
-  .phone-chassis.unfolded,
-  .phone-chassis.split-view,
-  .phone-chassis.partially-folded {
-    width: 340px;
-    height: 480px;
+  .nav-title {
+    font-size: 14px;
   }
-  .phone-chassis.unfolded .screen-right,
-  .phone-chassis.split-view .screen-right,
-  .phone-chassis.partially-folded .screen-right {
-    display: none;
+  .btn {
+    padding: 7px 14px;
+    font-size: 12px;
+  }
+  .mobile-nav-bar {
+    display: block;
+  }
+  .hero {
+    padding: 36px 0 24px;
+  }
+  .hero-split {
+    flex-direction: column;
+    gap: 24px;
+    text-align: center;
+  }
+  .hero-left-pane {
+    text-align: center;
+  }
+  .hero-title {
+    font-size: clamp(22px, 5.8vw, 32px);
+    letter-spacing: -0.6px;
+    line-height: 1.2;
+    padding: 0 12px;
+  }
+  .hero-subtitle {
+    font-size: 14px;
+    padding: 0 4px;
+    margin-bottom: 20px;
+  }
+  .hero-actions {
+    justify-content: center;
+  }
+  .playground-toolbar {
+    padding: 14px 16px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .posture-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    width: 100%;
+  }
+  .posture-btn {
+    width: 100%;
+    padding: 10px 6px;
+    font-size: 12px;
+    min-height: 44px; /* iOS HIG touch target */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .control-toggles {
+    justify-content: space-around;
+    width: 100%;
+    gap: 10px;
+    font-size: 12px;
+  }
+  .screen-pane {
+    padding: 16px;
+  }
+  .screen-header {
+    font-size: 13px;
+  }
+  .screen-text {
+    font-size: 11px;
+  }
+  .mockup-card {
+    padding: 10px;
+  }
+  .mockup-label {
+    font-size: 10px;
+  }
+  .mockup-val {
+    font-size: 12px;
+  }
+  .features-section .grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .webmcp-split {
+    flex-direction: column;
+    gap: 24px;
   }
   .footer-content {
     flex-direction: column;
     text-align: center;
+    gap: 16px;
+  }
+  .footer-links {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 16px;
   }
 }
+
