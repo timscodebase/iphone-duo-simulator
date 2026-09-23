@@ -32,23 +32,30 @@ async function sendPosture(posture: DuoPosture, angle?: number) {
   currentPosture = posture;
   postureStatus.textContent = `Applying ${posture}...`;
 
-  chrome.runtime.sendMessage(
-    {
-      type: 'APPLY_POSTURE',
-      tabId,
-      posture,
-      angle: angle ?? parseInt(sliderAngle.value, 10),
-      showCrease: chkCrease.checked,
-      showReservedRegion: chkReservedRegion.checked
-    },
-    (res) => {
-      if (res?.ok) {
-        postureStatus.textContent = `Active: ${posture.toUpperCase()}`;
-      } else {
-        postureStatus.textContent = `Error: ${res?.error || 'Unknown'}`;
-      }
+  const payload = {
+    type: 'APPLY_POSTURE',
+    tabId,
+    posture,
+    angle: angle ?? parseInt(sliderAngle.value, 10),
+    showCrease: chkCrease.checked,
+    showReservedRegion: chkReservedRegion.checked
+  };
+
+  // Persist state
+  chrome.storage.local.set({ 
+    lastPosture: posture, 
+    lastAngle: payload.angle,
+    showCrease: chkCrease.checked,
+    showReservedRegion: chkReservedRegion.checked 
+  });
+
+  chrome.runtime.sendMessage(payload, (res) => {
+    if (res?.ok) {
+      postureStatus.textContent = `Active: ${posture.toUpperCase()}`;
+    } else {
+      postureStatus.textContent = `Error: ${res?.error || 'Unknown'}`;
     }
-  );
+  });
 }
 
 btnFolded.addEventListener('click', () => {
@@ -79,6 +86,10 @@ btnReset.addEventListener('click', () => {
 sliderAngle.addEventListener('input', () => {
   const deg = sliderAngle.value;
   angleValue.textContent = `${deg}°`;
+  
+  // Prime the value in storage even if not active
+  chrome.storage.local.set({ lastAngle: parseInt(deg, 10) });
+
   if (currentPosture === 'partially_folded') {
     sendPosture('partially_folded', parseInt(deg, 10));
   }
@@ -96,6 +107,11 @@ function syncGuides() {
       void chrome.runtime.lastError;
     }
   );
+  
+  chrome.storage.local.set({ 
+    showCrease: chkCrease.checked, 
+    showReservedRegion: chkReservedRegion.checked 
+  });
 }
 
 chkCrease.addEventListener('change', syncGuides);
@@ -151,7 +167,6 @@ function syncWebMCPFromPage() {
   );
 }
 
-// Emulate agent invoking WebMCP posture tool directly into page context
 btnRunAgentPostureTest.addEventListener('click', () => {
   chrome.devtools.inspectedWindow.eval(`
     if (window.__iPhoneDuoWebMCP) {
@@ -162,16 +177,45 @@ btnRunAgentPostureTest.addEventListener('click', () => {
   `);
 });
 
-// Initial queries to sync page state
-chrome.tabs.sendMessage(tabId, { type: 'QUERY_WEBMCP_STATE' }, (response) => {
-  if (chrome.runtime.lastError) {
-    return;
+// Initialization: Restore state & Sync
+async function init() {
+  const state = await chrome.storage.local.get(['lastPosture', 'lastAngle', 'showCrease', 'showReservedRegion']);
+  
+  if (state.lastAngle) {
+    sliderAngle.value = state.lastAngle.toString();
+    angleValue.textContent = `${state.lastAngle}°`;
   }
-  if (response?.tools && Array.isArray(response.tools)) {
-    renderWebMCPTools(response.tools);
-  }
-});
+  
+  if (state.showCrease !== undefined) chkCrease.checked = state.showCrease;
+  if (state.showReservedRegion !== undefined) chkReservedRegion.checked = state.showReservedRegion;
 
-syncWebMCPFromPage();
-const syncInterval = setInterval(syncWebMCPFromPage, 1000);
-setTimeout(() => clearInterval(syncInterval), 10000);
+  if (state.lastPosture && state.lastPosture !== 'reset') {
+    const posture = state.lastPosture as DuoPosture;
+    
+    // Update UI buttons
+    const btnMap: Record<DuoPosture, HTMLButtonElement | null> = {
+      folded: btnFolded,
+      unfolded: btnUnfolded,
+      partially_folded: btnPartiallyFolded,
+      split_view: btnSplitView,
+      reset: null
+    };
+    updateActiveButton(btnMap[posture]);
+    
+    // Apply the posture
+    sendPosture(posture, state.lastAngle);
+  }
+
+  chrome.tabs.sendMessage(tabId, { type: 'QUERY_WEBMCP_STATE' }, (response) => {
+    if (chrome.runtime.lastError) return;
+    if (response?.tools && Array.isArray(response.tools)) {
+      renderWebMCPTools(response.tools);
+    }
+  });
+
+  syncWebMCPFromPage();
+  const syncInterval = setInterval(syncWebMCPFromPage, 2000);
+  setTimeout(() => clearInterval(syncInterval), 15000);
+}
+
+init();

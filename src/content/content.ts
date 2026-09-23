@@ -37,21 +37,32 @@ function updateVisualOverlays() {
   const host = ensureOverlayHost();
   host.innerHTML = '';
   document.body.classList.remove('duo-partially-folded');
-
+  
   if (currentPosture === 'reset') {
+    document.body.style.transform = '';
     return;
   }
 
-  // 1. Folded mode (Outer Display)
+  // 1. Hardware Rounded Viewport Corners (Convex Screen, Black Bezel Tips)
+  const cornerPositions = ['tl', 'tr', 'br', 'bl'] as const;
+  cornerPositions.forEach((pos) => {
+    const corner = document.createElement('div');
+    corner.className = `duo-corner-bezel duo-corner-${pos}`;
+    host.appendChild(corner);
+  });
+
+
+  // 2. Folded mode (Outer Display)
   if (currentPosture === 'folded') {
     const island = document.createElement('div');
     island.className = 'iphone-duo-outer-island';
     island.title = 'iPhone Duo Outer Corner Camera (Dynamic Island)';
     host.appendChild(island);
+    document.body.style.transform = '';
     return;
   }
 
-  // 2. Unfolded (Flat) & 3. Partially Folded (Book Pose)
+  // 3. Unfolded (Flat) & 4. Partially Folded (Book Pose)
   if (currentPosture === 'unfolded' || currentPosture === 'partially_folded') {
     if (isReservedRegionVisible) {
       const reserved = document.createElement('div');
@@ -79,7 +90,6 @@ function updateVisualOverlays() {
       shadow.className = 'iphone-duo-spine-shadow';
       host.appendChild(shadow);
 
-      // Book hinge perspective calculation
       const depthOffset = Math.sin(((180 - currentFoldAngle) * Math.PI) / 360) * 40;
       document.body.style.transform = `rotateY(${
         (180 - currentFoldAngle) * 0.08

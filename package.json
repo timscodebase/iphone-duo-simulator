@@ -1,6 +1,6 @@
 {
   "name": "iphone-duo-simulator",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "description": "Chrome Extension & DevTools Panel to simulate Apple iPhone Duo with WebMCP support",
   "type": "module",
   "scripts": {
