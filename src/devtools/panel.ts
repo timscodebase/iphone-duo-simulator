@@ -95,10 +95,16 @@ function syncGuides() {
 chkCrease.addEventListener('change', syncGuides);
 chkReservedRegion.addEventListener('change', syncGuides);
 
-// WebMCP Discovery Listener
+// WebMCP Discovery Listeners
 window.addEventListener('message', (event) => {
-  if (event.data?.type === 'WEBMCP_TOOLS_DISCOVERED') {
+  if (event.data?.type === 'WEBMCP_TOOLS_DISCOVERED' && Array.isArray(event.data.tools)) {
     renderWebMCPTools(event.data.tools);
+  }
+});
+
+chrome.runtime.onMessage.addListener((message) => {
+  if (message?.type === 'WEBMCP_TOOLS_DISCOVERED' && Array.isArray(message.tools)) {
+    renderWebMCPTools(message.tools);
   }
 });
 
@@ -106,7 +112,7 @@ function renderWebMCPTools(tools: WebMCPTool[]) {
   if (!tools || tools.length === 0) {
     webmcpPill.textContent = 'None';
     webmcpPill.classList.remove('active');
-    toolList.innerHTML = '<div class="empty-state">No WebMCP tools registered.</div>';
+    toolList.innerHTML = '<div class="empty-state">No client-side WebMCP tools detected on this page.</div>';
     return;
   }
 
@@ -124,6 +130,21 @@ function renderWebMCPTools(tools: WebMCPTool[]) {
     .join('');
 }
 
+function syncWebMCPFromPage() {
+  chrome.devtools.inspectedWindow.eval(
+    `(() => {
+      const duo = (window).__iPhoneDuoWebMCP?.registeredTools;
+      if (Array.isArray(duo) && duo.length > 0) return duo;
+      return null;
+    })()`,
+    (tools, isException) => {
+      if (!isException && Array.isArray(tools) && tools.length > 0) {
+        renderWebMCPTools(tools as WebMCPTool[]);
+      }
+    }
+  );
+}
+
 // Emulate agent invoking WebMCP posture tool directly into page context
 btnRunAgentPostureTest.addEventListener('click', () => {
   chrome.devtools.inspectedWindow.eval(`
@@ -135,9 +156,13 @@ btnRunAgentPostureTest.addEventListener('click', () => {
   `);
 });
 
-// Initial query to sync page state
+// Initial queries to sync page state
 chrome.tabs.sendMessage(tabId, { type: 'QUERY_WEBMCP_STATE' }, (response) => {
-  if (response?.tools) {
+  if (response?.tools && Array.isArray(response.tools)) {
     renderWebMCPTools(response.tools);
   }
 });
+
+syncWebMCPFromPage();
+const syncInterval = setInterval(syncWebMCPFromPage, 1000);
+setTimeout(() => clearInterval(syncInterval), 10000);
